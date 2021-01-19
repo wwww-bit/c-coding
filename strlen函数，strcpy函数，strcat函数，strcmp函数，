@@ -1,0 +1,117 @@
+模拟实现 strlen
+#include <stdio.h> 
+#include <assert.h>
+int my_strlen(const char* str)
+{
+	int count = 0;
+	assert(str != NULL);
+	while (*str != '\0')
+	{
+		count++;
+		str++;
+	}
+	return count;
+}
+int main()
+{
+	int len = my_strlen("abcdef");
+	printf("%d\n", len);
+	return 0;
+}
+
+模拟实现 strcpy
+#include <stdio.h> 
+#include <assert.h>
+char* my_strcpy(char* dest, const char*src)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	char* ret = dest;
+	//拷贝src指向的字符串到dest指向的空间，包含'\0'
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;//拷贝bit
+	}
+	*dest = *src;//拷贝\0
+	//代码改进：
+	//while (*dest++ = *src++)
+	//{
+	//	;
+	//}
+	//返回目的空间的起始值
+	return ret;
+}
+int main()
+{
+	char arr1[] = "abcdefghi";
+	char arr2[] = "bit";
+	my_strcpy(arr1,arr2);//把arr2拷贝到arr1上并且把/0也拷贝过去了
+	printf("%s\n", arr1);
+	return 0;
+}
+
+
+#include <stdio.h> 
+#include <assert.h>
+char* my_strcat(char*dest,const char* src)
+{
+	char*ret = dest;
+	assert(dest != NULL);
+	assert(src != NULL);
+	//1.找到目的字符串的\0
+	while (*dest != '\0')
+	{
+		dest++;
+	}
+	//2.追加
+	while (*dest++ = *src++)
+	{
+		;
+	}
+	return ret;
+}
+int main()
+{
+	char arr1[30] = "hello";
+	char arr2[] = "world";
+	my_strcat(arr1, arr2);//arr1内容后面追加一个arr2，其中arr1要足够大,arr2从arr1的\0之后开始追加
+	printf("%s\n", arr1);
+	return 0;
+}
+
+
+模拟实现 strcmp
+#include <stdio.h> 
+#include <assert.h>
+int my_strcmp(const char* str1, const char* str2)
+{
+	assert(str1 && str2);
+	//比较
+	while (*str1 == *str2)
+	{
+		if (*str1 == '\0')
+		{
+			return 0;//相等
+		}
+		str1++;
+		str2++;
+	}
+	if (*str1 > *str2)
+	{
+		return 1;//大于
+	}
+	else
+	{
+		return -1;//小于
+	}
+}
+int main()
+{
+	char *p1 = "abcdef";
+	char *p2 = "aqwer";
+	int ret = my_strcmp(p1, p2);
+	printf("ret=%d\n", ret);
+	return 0;
+}
