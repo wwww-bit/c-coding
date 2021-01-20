@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char S1[20];
+	char S2[] = "abcd";
+	memcpy(S1, S2, sizeof(S2));
+	return 0;
+}
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char S1[20];
+	char S2[] = "abcd";
+	memcpy(S1, S2, sizeof(S2));
+	double S3[20];
+	double S4[] = {1.1,2.2,3.3,4.4,5.5};
+	memcpy(S3, S4, sizeof(S4));
+	return 0;
+}
+
+
+memcpy的模拟实现
+#include<stdio.h>
+#include<string.h>
+void* my_memcpy(void* dst, const void* src, size_t num)
+{
+	char* ch_dst = (char*)dst;
+	const char* ch_src = (const char*)src;
+	for (size_t i = 0; i < num; ++i)
+	{
+		ch_dst[i] = ch_src[i];
+	}
+	return dst;
+}
+int main()
+{
+	char S1[20];
+	char S2[] = "abcd";
+	my_memcpy(S1, S2, sizeof(S2));
+	double S3[20];
+	double S4[] = {1.1,2.2,3.3,4.4,5.5};
+	my_memcpy(S3, S4, sizeof(S4));
+	return 0;
+}
+
+
+模拟实现memmove
+
+#include<stdio.h>
+#include<string.h>
+void* my_memmove(void* dst, const void* src, size_t num)
+{
+		char* ch_dst = (char*)dst;
+		const char* ch_src = (const char*)src;
+		//从后往前拷
+		if (ch_dst >= src && ch_dst <= ch_src + num)
+		{
+			for (int i = num - 1; i >= 0; --i)
+			{
+				ch_dst[i] = ch_src[i];
+			}
+		}
+		//从后往前拷
+		else
+		{
+			for (int i = 0; i < num; ++i)
+			{
+				ch_dst[i] = ch_src[i];
+			}
+		}
+		return dst;
+}
+int main()
+{
+	int a[10] = { 1, 2, 3, 4, 5 };
+	my_memmove(a + 4, a, 20);
+	return 0;
+}
+
