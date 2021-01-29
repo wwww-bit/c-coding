@@ -1,0 +1,71 @@
+int* addToArrayForm(int* A, int ASize, int K, int* returnSize)
+{
+	//计算存储结果数组retArr的大小
+
+	int num = K;
+	//具体多大，要看A和K哪个大
+	//计算K的大小
+	int KSize = 0;
+	while (num)
+	{
+		++KSize;
+		num = num / 10;
+	}
+	//比较A和K，将大的赋值给n，+1是因为，后面可能会进位,所以多给一个
+	int n = KSize > ASize ? KSize + 1 : ASize + 1;
+
+	int* retArr = malloc(sizeof(int)*n);
+
+	int Ai = ASize - 1;
+	int Knum;
+	int next = 0;//进位
+	int reti = 0;
+	//判断：同时结束才结束,有一个没结束，依然继续所以用 ||
+	while (Ai >= 0 || K > 0)
+	{
+		//从整形和数组中分别取要加的值
+		Knum = K % 10;
+		K = K / 10;
+		int Anum = 0;
+		if (Ai >= 0)
+		{
+			Anum = A[Ai--];
+		}
+		int ret = Anum + Knum + next;
+;
+		if (ret>=10)
+		{
+			next = 1;
+			ret = ret - 10;
+		}
+		else
+		{
+			next = 0;
+		}
+		retArr[reti] = ret;
+		reti++;
+	}
+	//最后一个进位
+	if (next == 1)
+	{
+		retArr[reti++] = 1;
+	}
+	//输出型参数
+	*returnSize = reti;
+
+	//逆置
+	int left = 0;
+	int right = reti - 1;
+	while (left < right)
+	{
+		int tmp = retArr[left];
+		retArr[left] = retArr[right];
+		retArr[right] = tmp;
+		left++;
+		right--;
+
+	}
+	return retArr;
+
+
+}
