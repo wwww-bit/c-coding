@@ -1,0 +1,28 @@
+    ListNode* partition(ListNode* pHead, int x) {
+        struct ListNode* lesshead,*lesstail,*greaterhead,*greatertail;
+        lesshead=lesstail=(struct ListNode*)malloc(sizeof(struct ListNode));
+        greaterhead=greatertail=(struct ListNode*)malloc(sizeof(struct ListNode));
+        
+        ListNode*cur=pHead;
+        while(cur)
+        {
+            if(cur->val<x)
+            {
+                lesstail->next=cur;
+                lesstail=cur;
+            }
+            else{
+                greatertail->next=cur;
+                greatertail=cur;
+            }
+            cur=cur->next;
+        }
+        lesstail->next=greaterhead->next;
+        greatertail->next=NULL;
+        struct ListNode*List= lesshead->next;
+        free(greaterhead);
+        free(lesshead);
+        return List;
+        // write code here
+    }
+};
